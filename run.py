@@ -106,8 +106,12 @@ args = arg_parser.parse_args()
 
 load_dotenv()
 
+print("Environement loaded, starting to build list of reading suggestions",
+        "based on Zotero Collection...", sep="")
 # Build bibliographic list
 body = body_builder()
+
+print("List of reading suggestions successfully built.")
 
 # Display or post
 if args.post:
@@ -116,11 +120,11 @@ if args.post:
     gitlab_access_token = os.environ.get("GITLAB_ACCESS_TOKEN")
     gitlab_project_id = os.environ.get("GITLAB_PROJECT_ID")
     gitlab_issue_iid = os.environ.get("GITLAB_ISSUE_IID")
-
     if gitlab_base_url.endswith("/"):
         gitlab_base_url = gitlab_base_url[:-1]
 
     # Post Comment to Issue
+    print("Preparing to post to Gitlab...")
     url = f"{gitlab_base_url}/api/v4/projects/{gitlab_project_id}/issues/{gitlab_issue_iid}/notes"
     r = requests.get(url, headers={"PRIVATE-TOKEN": gitlab_access_token})
 
@@ -131,8 +135,10 @@ if args.post:
 
     if available:
         r = requests.post(url, headers={"PRIVATE-TOKEN": gitlab_access_token}, data={"body":body})
+        print("Successfully posted to Gitlab!")
     else:
-        print("Gitlab n'est pas disponible ou bien l'adresse n'est pas correcte.")
+        print("Post failed: Gitlab was not available or the address is not correct.")
 
 else:
+    print("Here are the suggesstions:\n")
     print(body)

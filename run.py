@@ -88,9 +88,10 @@ def body_builder():
                 n_validate += 1
                 refs_validate.append(make_citation(item))
         elif not "vérifié" in item_tags:
-            if n_check_metadata < N_CHECK_MAX:
-                n_check_metadata += 1
-                refs_check_metadata.append(make_citation(item))
+            if not item['data'].get('itemType') == "note":
+                if n_check_metadata < N_CHECK_MAX:
+                    n_check_metadata += 1
+                    refs_check_metadata.append(make_citation(item))
         if n_read == N_READ_MAX and n_validate == N_VAL_MAX and n_check_metadata == N_CHECK_MAX:
             break
 

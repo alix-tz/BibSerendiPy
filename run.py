@@ -8,6 +8,7 @@ __version__ = "0.1.1"
 import argparse
 import datetime
 import os
+import random
 
 import requests
 
@@ -51,6 +52,8 @@ def body_builder():
     # Load Zotero Collection
     zot = zotero.Zotero(library_id=zotero_group_id, library_type="group", api_key=zotero_api_key)
     items = zot.everything(zot.items())
+
+    random.shuffle(items)
 
     # Explore Zotero Collection dans build reading list
     # Build Reading List

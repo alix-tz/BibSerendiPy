@@ -1,3 +1,4 @@
-pyzotero==1.5.4
 python-dateutil==2.8.2
+python-dotenv==0.20.0
+pyzotero==1.5.4
 requests==2.23.0

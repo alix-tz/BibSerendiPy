@@ -7,9 +7,11 @@ __version__ = "0.1.1"
 
 import argparse
 import datetime
+import os
 
 import requests
 
+from dotenv import load_dotenv
 from pyzotero import zotero
 from dateutil import parser as dup
 
@@ -41,8 +43,10 @@ def make_citation(item, bang=""):
     return f"- [ ] {bang}{authors}, {date}, *{title}* ({ref_type}). doi: {doi}"
 
 def body_builder():
-    # Import from config
-    from config import zotero_api_key, zotero_group_id, zotero_user_id
+    # load Zotero related variables
+    zotero_api_key = os.environ.get("ZOTERO_API_KEY")
+    zotero_group_id = os.environ.get("ZOTERO_GROUP_ID")
+    zotero_user_id = os.environ.get("ZOTERO_USER_ID")
 
     # Load Zotero Collection
     zot = zotero.Zotero(library_id=zotero_group_id, library_type="group", api_key=zotero_api_key)
@@ -82,12 +86,12 @@ def body_builder():
             break
 
     this_week = datetime.date.today().isocalendar() 
-    body += f"# Cette semaine (n°{this_week[1]} de {this_week[0]}))\n\n"
-    body += "## A lire:\n"
+    body += f"# Cette semaine (n°{this_week[1]} de {this_week[0]}))\n"
+    body += "\n## A lire:\n"
     body += "\n".join(refs_read)
-    body += "\n## A valider:\n"
+    body += "\n\n## A valider:\n"
     body += "\n".join(refs_validate)
-    body += "\n## Contrôler les métadonnées:\n"
+    body += "\n\n## Contrôler les métadonnées:\n"
     body += "\n".join(refs_check_metadata)
     return body
 
@@ -97,12 +101,18 @@ arg_parser = argparse.ArgumentParser(description="Execution of Bib SerendiPy")
 arg_parser.add_argument("--post", action="store_true", help="Trigger posting the list in a Gitlab issue as a comment")
 args = arg_parser.parse_args()
 
+load_dotenv()
+
+# Build bibliographic list
 body = body_builder()
 
 # Display or post
 if args.post:
-    # trigger posting
-    from config import gitlab_access_token, gitlab_project_id, gitlab_issue_iid, gitlab_base_url 
+    # mpad Gitlab related variables from .env
+    gitlab_base_url = os.environ.get("GITLAB_BASE_URL")
+    gitlab_access_token = os.environ.get("GITLAB_ACCESS_TOKEN")
+    gitlab_project_id = os.environ.get("GITLAB_PROJECT_ID")
+    gitlab_issue_iid = os.environ.get("GITLAB_ISSUE_IID")
 
     if gitlab_base_url.endswith("/"):
         gitlab_base_url = gitlab_base_url[:-1]

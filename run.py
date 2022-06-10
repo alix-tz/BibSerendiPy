@@ -17,6 +17,12 @@ from pyzotero import zotero
 from dateutil import parser as dup
 
 
+# Set Max number of suggestions
+N_READ_MAX = 2
+N_VAL_MAX = 4
+N_CHECK_MAX = 2
+
+
 # Functions ---------------------------------------
 def get_authors(creators):
     authors = "(NA)"
@@ -70,7 +76,7 @@ def body_builder():
     for item in items:
         item_tags = zot.item_tags(item["key"])
         if "à lire" in item_tags:
-            if n_read < 5:
+            if n_read < N_READ_MAX:
                 n_read += 1
                 if "high interest" in zot.item_tags(item["key"]):
                     bang = ":star: "
@@ -78,18 +84,18 @@ def body_builder():
                     bang = ""
                 refs_read.append(make_citation(item, bang))
         elif "à valider" in item_tags:
-            if n_validate < 5:
+            if n_validate < N_VAL_MAX:
                 n_validate += 1
                 refs_validate.append(make_citation(item))
         elif not "vérifié" in item_tags:
-            if n_check_metadata < 5:
+            if n_check_metadata < N_CHECK_MAX:
                 n_check_metadata += 1
                 refs_check_metadata.append(make_citation(item))
-        if n_read == 5 and n_validate == 5 and n_check_metadata == 5:
+        if n_read == N_READ_MAX and n_validate == N_VAL_MAX and n_check_metadata == N_CHECK_MAX:
             break
 
-    this_week = datetime.date.today().isocalendar() 
-    body += f"# Cette semaine (n°{this_week[1]} de {this_week[0]})\n"
+    today = datetime.date.today()
+    body += f"# {today.strftime('%d/%m/%Y')} (Semaine n°{today.isocalendar()[1]})\n"
     body += "\n## A lire:\n"
     body += "\n".join(refs_read)
     body += "\n\n## A valider:\n"
@@ -113,7 +119,7 @@ body = body_builder()
 
 print("List of reading suggestions successfully built.")
 
-# Display or post
+# Display or post to Gitlab
 if args.post:
     # mpad Gitlab related variables from .env
     gitlab_base_url = os.environ.get("GITLAB_BASE_URL")
@@ -138,7 +144,6 @@ if args.post:
         print("Successfully posted to Gitlab!")
     else:
         print("Post failed: Gitlab was not available or the address is not correct.")
-
 else:
     print("Here are the suggesstions:\n")
     print(body)

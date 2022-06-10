@@ -27,23 +27,23 @@ Pour executer le programme, il faut donc s'assurer d'installer ces dépendances 
 
 Plusieurs informations externes sont requises et doivent être indiquées dans le fichier `config.py`. Attention, ces informations ne doivent pas être rendues publiques.  
 
-Pour créer le fichier `config.py`, copier `config.py.template` et renommer le fichier de manière à retirer `.template`.
+Pour créer le fichier `.env`, copier `.env.template` et renommer le fichier de manière à retirer `.template`.
 
 ### Pour générer la liste
 
-- `zotero_api_key` : API Key pour Zotero 
-- `zotero_group_id` : ID du groupe Zotero
-- `zotero_user_id` : (opt) ID de l'utilisateur Zotero  
+- `ZOTERO_API_KEY` : API Key pour Zotero 
+- `ZOTERO_GROUP_ID` : ID du groupe Zotero
+- `ZOTERO_USER_ID` : (opt) ID de l'utilisateur Zotero  
 
 ### Pour poster sur Gitlab (opt)
 
-- `gitlab_base_url` : url vers l'instance Gitlab utilisée  
-- `gitlab_access_token`: Access Token pour Gitlab
-- `gitlab_project_id` : ID du projet Gitlab où sera postée la liste de références
-- `gitlab_issue_iid` : IID de l'issue dans laquelle la liste de références sera postée
+- `GITLAB_BASE_URL` : url vers l'instance Gitlab utilisée  
+- `GITLAB_ACCESS_TOKEN`: Access Token pour Gitlab
+- `GITLAB_PROJECT_ID` : ID du projet Gitlab où sera postée la liste de références
+- `GITLAB_ISSUE_IID` : IID de l'issue dans laquelle la liste de références sera postée
 
 ## Exécution
 
 1. Activer et installer les dépendances dans un environnement virtuel
-2. Remplir les informations de `config.py`
+2. Remplir les informations de `.env`
 3. Lancer `run.py` avec la commande `python run.py` (ajouter `--post` pour poster le résultat sur Gitlab)

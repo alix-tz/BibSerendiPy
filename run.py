@@ -113,7 +113,7 @@ args = arg_parser.parse_args()
 load_dotenv()
 
 print("Environement loaded, starting to build list of reading suggestions",
-        "based on Zotero Collection...", sep="")
+        "based on Zotero Collection...", sep=" ")
 # Build bibliographic list
 body = body_builder()
 

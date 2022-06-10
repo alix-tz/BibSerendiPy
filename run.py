@@ -86,7 +86,7 @@ def body_builder():
             break
 
     this_week = datetime.date.today().isocalendar() 
-    body += f"# Cette semaine (n°{this_week[1]} de {this_week[0]}))\n"
+    body += f"# Cette semaine (n°{this_week[1]} de {this_week[0]})\n"
     body += "\n## A lire:\n"
     body += "\n".join(refs_read)
     body += "\n\n## A valider:\n"

@@ -14,10 +14,12 @@ Pour le moment, le programme cibles les tags suivants :
 
 ## Dépendances
 
-Le programme utilise deux library externe :  
+Le programme utilise des libraries Python externes :  
 
 - `PyZotero`
-- `Dateutil`
+- `Python-Dateutil`
+- `Python-Dotenv`
+- `Requests`
 
 Pour executer le programme, il faut donc s'assurer d'installer ces dépendances (avec PiPy par exemple) à l'aide du fichier `requirements.txt`, de préférence dans un environnement virtuel.  
 

@@ -26,7 +26,7 @@ Le programme utilise des libraries Python externes :
 
 Pour executer le programme, il faut donc s'assurer d'installer ces dépendances (avec PiPy par exemple) à l'aide du fichier `requirements.txt`, de préférence dans un environnement virtuel.  
 
-## Execution
+## Configuration
 
 Plusieurs informations externes sont requises et doivent être indiquées dans le fichier `.env`. Attention, ces informations ne doivent pas être rendues publiques.  
 

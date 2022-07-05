@@ -28,7 +28,7 @@ Pour executer le programme, il faut donc s'assurer d'installer ces dépendances 
 
 ## Execution
 
-Plusieurs informations externes sont requises et doivent être indiquées dans le fichier `config.py`. Attention, ces informations ne doivent pas être rendues publiques.  
+Plusieurs informations externes sont requises et doivent être indiquées dans le fichier `.env`. Attention, ces informations ne doivent pas être rendues publiques.  
 
 Pour créer le fichier `.env`, copier `.env.template` et renommer le fichier de manière à retirer `.template`.
 

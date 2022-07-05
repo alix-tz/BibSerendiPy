@@ -1,6 +1,9 @@
-# Bib SerendiPy
+<img src="illus_bibserendipy.png" align="right" width="400px"/>
+
+# Bib SerendiPy 
 
 Un petit programme pour générer des listes courtes d'entrée bibliographiques, à lire, controler ou contempler.
+
 
 ## Pré-requis
 

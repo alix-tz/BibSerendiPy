@@ -113,8 +113,10 @@ args = arg_parser.parse_args()
 
 load_dotenv()
 
-print("Environement loaded, starting to build list of reading suggestions",
+print("Successfully loaded environment variables\n", 
+        "Now building a list of reading suggestions",
         "based on Zotero Collection...", sep=" ")
+
 # Build bibliographic list
 body = body_builder()
 
@@ -146,5 +148,5 @@ if args.post:
     else:
         print("Post failed: Gitlab was not available or the address is not correct.")
 else:
-    print("Here are the suggesstions:\n")
+    print("Here are the suggestions:\n")
     print(body)
